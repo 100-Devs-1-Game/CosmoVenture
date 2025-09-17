@@ -1,9 +1,157 @@
-[gd_scene load_steps=3 format=3 uid="uid://dvvfdwkg51t6m"]
+[gd_scene load_steps=22 format=3 uid="uid://dvvfdwkg51t6m"]
 
 [ext_resource type="Script" uid="uid://bhupgkwqfno3" path="res://main.gd" id="1_ig7tw"]
-[ext_resource type="PackedScene" uid="uid://871xk1aw70ho" path="res://menus/main_menu.tscn" id="2_0xm2m"]
+
+[sub_resource type="GDScript" id="GDScript_ig7tw"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kvqlu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_oblsv"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_a63lr"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_u3dsk"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8gy84"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ij7vn"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yjgyn"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rqbgu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pwbes"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hswy5"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ygrj5"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vmd75"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_caclp"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nc6jr"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lgqab"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kk4mm"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rx1ud"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wcdpt"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ysfef"]
 
 [node name="Main" type="Node"]
+process_mode = 3
 script = ExtResource("1_ig7tw")
 
-[node name="MainMenu" parent="." instance=ExtResource("2_0xm2m")]
+[node name="MainMenu" type="Control" parent="."]
+process_mode = 3
+z_index = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_ig7tw")
+
+[node name="MarginContainer" type="MarginContainer" parent="MainMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMenu/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 48
+
+[node name="SeparatorControl" type="Control" parent="MainMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="GameTitle" type="Label" parent="MainMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "CosmoVenture"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MainMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="MenuButtonContainer" type="VBoxContainer" parent="MainMenu/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 16
+
+[node name="NewGameButton" type="Button" parent="MainMenu/MarginContainer/VBoxContainer/HBoxContainer/MenuButtonContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxEmpty_kvqlu")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_oblsv")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_a63lr")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_u3dsk")
+text = "New Game"
+
+[node name="ContinueButton" type="Button" parent="MainMenu/MarginContainer/VBoxContainer/HBoxContainer/MenuButtonContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxEmpty_8gy84")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_ij7vn")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_yjgyn")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_u3dsk")
+text = "Continue"
+
+[node name="SaveButton" type="Button" parent="MainMenu/MarginContainer/VBoxContainer/HBoxContainer/MenuButtonContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxEmpty_8gy84")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_ij7vn")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_yjgyn")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_u3dsk")
+text = "Save"
+
+[node name="SettingsButton" type="Button" parent="MainMenu/MarginContainer/VBoxContainer/HBoxContainer/MenuButtonContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxEmpty_rqbgu")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_pwbes")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_hswy5")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ygrj5")
+text = "Settings"
+
+[node name="CreditsButton" type="Button" parent="MainMenu/MarginContainer/VBoxContainer/HBoxContainer/MenuButtonContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxEmpty_vmd75")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_caclp")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_nc6jr")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_lgqab")
+text = "Credits"
+
+[node name="QuitButton" type="Button" parent="MainMenu/MarginContainer/VBoxContainer/HBoxContainer/MenuButtonContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxEmpty_kk4mm")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_rx1ud")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_wcdpt")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ysfef")
+text = "Quit"
+
+[connection signal="pressed" from="MainMenu/MarginContainer/VBoxContainer/HBoxContainer/MenuButtonContainer/NewGameButton" to="." method="_on_new_game_button_pressed"]
+[connection signal="pressed" from="MainMenu/MarginContainer/VBoxContainer/HBoxContainer/MenuButtonContainer/ContinueButton" to="." method="_on_continue_button_pressed"]
+[connection signal="pressed" from="MainMenu/MarginContainer/VBoxContainer/HBoxContainer/MenuButtonContainer/SaveButton" to="." method="_on_save_button_pressed"]
+[connection signal="pressed" from="MainMenu/MarginContainer/VBoxContainer/HBoxContainer/MenuButtonContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="MainMenu/MarginContainer/VBoxContainer/HBoxContainer/MenuButtonContainer/CreditsButton" to="." method="_on_credits_button_pressed"]
+[connection signal="pressed" from="MainMenu/MarginContainer/VBoxContainer/HBoxContainer/MenuButtonContainer/QuitButton" to="." method="_on_quit_button_pressed"]
