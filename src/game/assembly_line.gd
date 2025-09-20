@@ -4,7 +4,6 @@ class_name AssemblyLine extends Node2D
 
 @onready var parts_scene := preload("res://game/parts/space_craft_parts.tscn").instantiate()
 
-var data: GameData
 var craft_parts: Array[Sprite2D] = []
 
 
@@ -36,9 +35,18 @@ func _draw() -> void:
 
 func assemble_craft(data: GameData) -> void:
 	craft_parts.clear()
-	craft_parts.append(parts_scene.find_child(data.selected_head))
-	craft_parts.append(parts_scene.find_child(data.selected_pod))
-	craft_parts.append(parts_scene.find_child(data.selected_fuel))
-	craft_parts.append(parts_scene.find_child(data.selected_engine))
+	if !data.selected_head.is_empty():
+		craft_parts.append(parts_scene.find_child(data.selected_head))
+	if !data.selected_pod.is_empty():
+		craft_parts.append(parts_scene.find_child(data.selected_pod))
+	if !data.selected_fuel.is_empty():
+		craft_parts.append(parts_scene.find_child(data.selected_fuel))
+	if !data.selected_engine.is_empty():
+		craft_parts.append(parts_scene.find_child(data.selected_engine))
 	craft_parts = craft_parts.filter(func(part): return part != null)
+	queue_redraw()
+
+
+func launch() -> void:
+	craft_parts.append(parts_scene.find_child("Thrust"))
 	queue_redraw()

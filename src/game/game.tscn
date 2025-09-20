@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cgd1x67pxpavn"]
+[gd_scene load_steps=12 format=3 uid="uid://cgd1x67pxpavn"]
 
 [ext_resource type="Script" uid="uid://d1pro72fdayqf" path="res://game/game.gd" id="1_l1rk1"]
 [ext_resource type="Script" uid="uid://c867l8s4sq4r2" path="res://game/assembly_line.gd" id="2_h7iqs"]
@@ -10,6 +10,21 @@ bg_color = Color(0.60324824, 0.6032482, 0.60324806, 1)
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4fuuu"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_h7iqs"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4fuuu"]
+bg_color = Color(0.17644349, 0.43896013, 0.2799936, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dxrkv"]
+bg_color = Color(0.14550576, 0.41009876, 0.34370703, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dakft"]
+bg_color = Color(0.27456248, 0.68264216, 0.57899135, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u5opy"]
+bg_color = Color(0.79801494, 0.3443346, 0.33759013, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y36n6"]
+bg_color = Color(0.22207478, 0.53514105, 0.34545705, 1)
 
 [node name="Game" type="Control"]
 process_mode = 1
@@ -138,8 +153,24 @@ theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 
-[node name="AssemblyLine" type="Node2D" parent="MarginContainer/HBoxContainer/Simulation/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/Simulation/MarginContainer"]
+layout_mode = 2
+
+[node name="LaunchButton" type="Button" parent="MarginContainer/HBoxContainer/Simulation/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = SubResource("StyleBoxFlat_4fuuu")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_dxrkv")
+theme_override_styles/hover = SubResource("StyleBoxFlat_dakft")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_u5opy")
+theme_override_styles/focus = SubResource("StyleBoxFlat_y36n6")
+text = "Launch"
+
+[node name="AssemblyLine" type="Node2D" parent="MarginContainer/HBoxContainer/Simulation/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+position = Vector2(0, 60)
 script = ExtResource("2_h7iqs")
 
 [node name="SpaceCraftParts" parent="." instance=ExtResource("3_h7iqs")]
@@ -151,3 +182,4 @@ visible = false
 [connection signal="toggled" from="MarginContainer/HBoxContainer/MissionControl/MarginContainer/VBoxContainer/MarginContainer/GridContainer/PodCheckButton" to="." method="_on_pod_check_button_toggled"]
 [connection signal="toggled" from="MarginContainer/HBoxContainer/MissionControl/MarginContainer/VBoxContainer/MarginContainer/GridContainer/FuelCheckButton" to="." method="_on_fuel_check_button_toggled"]
 [connection signal="toggled" from="MarginContainer/HBoxContainer/MissionControl/MarginContainer/VBoxContainer/MarginContainer/GridContainer/EngineCheckButton" to="." method="_on_engine_check_button_toggled"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/Simulation/MarginContainer/VBoxContainer/LaunchButton" to="." method="_on_launch_button_pressed"]
