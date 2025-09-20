@@ -1,6 +1,6 @@
 # TODO: @tool allows seeing redrawn items in 2D. Remove for actual game.
 @tool
-class_name AssemblyLine extends Node2D
+class_name AssemblyLine extends Control
 
 @onready var parts_scene := preload("res://game/parts/space_craft_parts.tscn").instantiate()
 
@@ -18,18 +18,17 @@ func _draw() -> void:
 	var height = 0
 	var pscale = 1
 	for part in craft_parts:
-		var size = part.get_rect().size
-		width = max(width, size.x)
-		height += size.y
-		pscale = get_viewport_rect().size.y / height
+		var part_size = part.get_rect().size
+		width = max(width, part_size.x)
+		height += part_size.y
+		pscale = size.y / height
 	pscale = min(pscale, 0.5)
 	for part in craft_parts:
-		var size = part.get_rect().size
-		var view_size = get_viewport_rect().size
-		x = view_size.x / 4 - size.x / 2 * pscale
-		draw_texture_rect_region(part.texture, Rect2(x, y, size.x * pscale, size.y * pscale),
+		var part_size = part.get_rect().size
+		x = size.x / 2 - part_size.x / 2 * pscale
+		draw_texture_rect_region(part.texture, Rect2(x, y, part_size.x * pscale, part_size.y * pscale),
 			part.region_rect)
-		y += size.y * pscale
+		y += part_size.y * pscale
 
 
 

@@ -79,6 +79,13 @@ theme_override_constants/margin_bottom = 16
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/MissionControl/MarginContainer"]
 layout_mode = 2
 
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/MissionControl/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Assembly Line"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/MissionControl/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -88,6 +95,8 @@ layout_mode = 2
 
 [node name="GridContainer" type="GridContainer" parent="MarginContainer/HBoxContainer/MissionControl/MarginContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 
 [node name="HeadCheckButton" type="Button" parent="MarginContainer/HBoxContainer/MissionControl/MarginContainer/VBoxContainer/MarginContainer/GridContainer"]
 unique_name_in_owner = true
@@ -160,7 +169,7 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 0
-theme_override_font_sizes/font_size = 28
+theme_override_font_sizes/font_size = 48
 theme_override_styles/normal = SubResource("StyleBoxFlat_4fuuu")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_dxrkv")
 theme_override_styles/hover = SubResource("StyleBoxFlat_dakft")
@@ -168,9 +177,10 @@ theme_override_styles/disabled = SubResource("StyleBoxFlat_u5opy")
 theme_override_styles/focus = SubResource("StyleBoxFlat_y36n6")
 text = "Launch"
 
-[node name="AssemblyLine" type="Node2D" parent="MarginContainer/HBoxContainer/Simulation/MarginContainer/VBoxContainer"]
+[node name="AssemblyLine" type="Control" parent="MarginContainer/HBoxContainer/Simulation/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
-position = Vector2(0, 60)
+layout_mode = 2
+size_flags_vertical = 3
 script = ExtResource("2_h7iqs")
 
 [node name="SpaceCraftParts" parent="." instance=ExtResource("3_h7iqs")]
