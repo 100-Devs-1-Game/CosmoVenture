@@ -1,0 +1,29 @@
+[gd_scene load_steps=2 format=3 uid="uid://qbnv5tebsywq"]
+
+[ext_resource type="Texture2D" uid="uid://b41hw7hoo58hd" path="res://assets/First_Cosmo_Rocket.png" id="1_370wy"]
+
+[node name="SpaceCraftParts" type="Node2D"]
+
+[node name="HeadMk1" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("1_370wy")
+region_enabled = true
+region_rect = Rect2(912, 64, 96, 80)
+
+[node name="PodMk1" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("1_370wy")
+region_enabled = true
+region_rect = Rect2(832, 168, 256, 176)
+
+[node name="FuelMk1" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("1_370wy")
+region_enabled = true
+region_rect = Rect2(816, 416, 288, 336)
+
+[node name="EngineMk1" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("1_370wy")
+region_enabled = true
+region_rect = Rect2(816, 792, 288, 168)
