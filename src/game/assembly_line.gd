@@ -1,51 +1,50 @@
-# TODO: @tool allows seeing redrawn items in 2D. Remove for actual game.
-@tool
 class_name AssemblyLine extends Control
 
-@onready var parts_scene := preload("res://game/parts/space_craft_parts.tscn").instantiate()
 
-var craft_parts: Array[Sprite2D] = []
+var is_sim := false
+var max_scale := 0.5
+var craft_at_y := 0
+
+var data: GameData
+var velocity := Vector2(0, 0)
 
 
 func _ready() -> void:
 	pass
 
 
+func _process(_delta: float) -> void:
+	if !is_sim:
+		# Nothing to process if not simulating.
+		craft_at_y = 0
+		max_scale = 1
+		return
+
+	var a = (1000 - 50)/50.0 - 10
+	var v = velocity + Vector2(0, a * _delta)
+	max_scale = 0.2
+	craft_at_y -= v.y * _delta
+	
+	velocity = v
+	%SpeedLabel.text = "Speed: " + str(velocity.length())
+	%HeightLabel.text = "Altitude: " + str(craft_at_y)
+	
+	queue_redraw()
+
+
 func _draw() -> void:
-	var x = 0
-	var y = 0
-	var width = 0
-	var height = 0
-	var pscale = 1
-	for part in craft_parts:
-		var part_size = part.get_rect().size
-		width = max(width, part_size.x)
-		height += part_size.y
-		pscale = size.y / height
-	pscale = min(pscale, 0.5)
-	for part in craft_parts:
-		var part_size = part.get_rect().size
-		x = size.x / 2 - part_size.x / 2 * pscale
-		draw_texture_rect_region(part.texture, Rect2(x, y, part_size.x * pscale, part_size.y * pscale),
-			part.region_rect)
-		y += part_size.y * pscale
+	var pos = Vector2(0, craft_at_y)
+	var pscale = 1.0
+	if is_sim:
+		pscale = max_scale
+	data.rocket.draw_rocket(self, pos, pscale)
 
 
-
-func assemble_craft(data: GameData) -> void:
-	craft_parts.clear()
-	if !data.selected_head.is_empty():
-		craft_parts.append(parts_scene.find_child(data.selected_head))
-	if !data.selected_pod.is_empty():
-		craft_parts.append(parts_scene.find_child(data.selected_pod))
-	if !data.selected_fuel.is_empty():
-		craft_parts.append(parts_scene.find_child(data.selected_fuel))
-	if !data.selected_engine.is_empty():
-		craft_parts.append(parts_scene.find_child(data.selected_engine))
-	craft_parts = craft_parts.filter(func(part): return part != null)
+func assemble_craft() -> void:
+	is_sim = false
 	queue_redraw()
 
 
 func launch() -> void:
-	craft_parts.append(parts_scene.find_child("Thrust"))
-	queue_redraw()
+	is_sim = true
+	craft_at_y = 200

@@ -9,6 +9,5 @@ func load() -> GameData:
 	if (ResourceLoader.exists(save_path)):
 		var data = ResourceLoader.load(save_path) as GameData
 		if data != null:
-			print("Loaded data: " + str(data.selected_pod))
 			return data
 	return GameData.new()

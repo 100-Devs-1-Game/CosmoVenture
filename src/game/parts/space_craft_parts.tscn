@@ -1,35 +1,58 @@
-[gd_scene load_steps=2 format=3 uid="uid://qbnv5tebsywq"]
+[gd_scene load_steps=4 format=3 uid="uid://qbnv5tebsywq"]
 
+[ext_resource type="Script" uid="uid://2wyl6eg6m4vq" path="res://game/parts/space_craft_parts.gd" id="1_4cdf7"]
 [ext_resource type="Texture2D" uid="uid://b41hw7hoo58hd" path="res://assets/First_Cosmo_Rocket.png" id="1_370wy"]
+[ext_resource type="Script" uid="uid://vydxb4j3h5bx" path="res://game/parts/rocket_part.gd" id="3_dky0s"]
 
-[node name="SpaceCraftParts" type="Node2D"]
+[node name="SpaceCraftParts" type="Node2D" node_paths=PackedStringArray("parts_by_type")]
+script = ExtResource("1_4cdf7")
+parts_by_type = {
+0: NodePath("NoseMk1"),
+1: NodePath("PodMk1"),
+2: NodePath("FuelMk1"),
+3: NodePath("ThrusterMk1"),
+4: NodePath("BurnThrusterMk1")
+}
 
-[node name="HeadMk1" type="Sprite2D" parent="."]
+[node name="NoseMk1" type="Sprite2D" parent="."]
 visible = false
 texture = ExtResource("1_370wy")
 region_enabled = true
 region_rect = Rect2(912, 64, 96, 80)
+script = ExtResource("3_dky0s")
+metadata/_custom_type_script = "uid://vydxb4j3h5bx"
 
 [node name="PodMk1" type="Sprite2D" parent="."]
 visible = false
 texture = ExtResource("1_370wy")
 region_enabled = true
 region_rect = Rect2(832, 168, 256, 176)
+script = ExtResource("3_dky0s")
+type = 1
+metadata/_custom_type_script = "uid://vydxb4j3h5bx"
 
 [node name="FuelMk1" type="Sprite2D" parent="."]
 visible = false
 texture = ExtResource("1_370wy")
 region_enabled = true
 region_rect = Rect2(816, 416, 288, 336)
+script = ExtResource("3_dky0s")
+type = 2
+metadata/_custom_type_script = "uid://vydxb4j3h5bx"
 
-[node name="EngineMk1" type="Sprite2D" parent="."]
+[node name="ThrusterMk1" type="Sprite2D" parent="."]
 visible = false
 texture = ExtResource("1_370wy")
 region_enabled = true
 region_rect = Rect2(816, 792, 288, 168)
+script = ExtResource("3_dky0s")
+type = 3
+metadata/_custom_type_script = "uid://vydxb4j3h5bx"
 
-[node name="Thrust" type="Sprite2D" parent="."]
+[node name="BurnThrusterMk1" type="Sprite2D" parent="."]
 visible = false
 texture = ExtResource("1_370wy")
 region_enabled = true
 region_rect = Rect2(792, 1024, 336, 336)
+script = ExtResource("3_dky0s")
+metadata/_custom_type_script = "uid://vydxb4j3h5bx"
