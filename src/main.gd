@@ -79,7 +79,7 @@ func _on_quit_button_pressed() -> void:
 ###### Unhandled (pause) handler
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("pause"):
+	if event.is_action_pressed("escape"):
 		_handle_pause_input()
 
 

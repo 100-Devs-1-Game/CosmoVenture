@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cgd1x67pxpavn"]
+[gd_scene load_steps=14 format=3 uid="uid://cgd1x67pxpavn"]
 
 [ext_resource type="Script" uid="uid://d1pro72fdayqf" path="res://game/game.gd" id="1_l1rk1"]
 [ext_resource type="Script" uid="uid://c867l8s4sq4r2" path="res://game/assembly_line.gd" id="2_h7iqs"]
@@ -25,6 +25,12 @@ bg_color = Color(0.79801494, 0.3443346, 0.33759013, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y36n6"]
 bg_color = Color(0.22207478, 0.53514105, 0.34545705, 1)
+
+[sub_resource type="InputEventAction" id="InputEventAction_h7iqs"]
+action = &"pause"
+
+[sub_resource type="Shortcut" id="Shortcut_4fuuu"]
+events = [SubResource("InputEventAction_h7iqs")]
 
 [node name="Game" type="Control"]
 process_mode = 1
@@ -95,7 +101,7 @@ text = "Science: 0"
 
 [node name="AssemblyLineLabel" type="Label" parent="MarginContainer/HSplitContainer/MissionControl/MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 64
+theme_override_font_sizes/font_size = 36
 text = "Assembly Line"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -183,13 +189,28 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 0
-theme_override_font_sizes/font_size = 48
+theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = SubResource("StyleBoxFlat_4fuuu")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_dxrkv")
 theme_override_styles/hover = SubResource("StyleBoxFlat_dakft")
 theme_override_styles/disabled = SubResource("StyleBoxFlat_u5opy")
 theme_override_styles/focus = SubResource("StyleBoxFlat_y36n6")
 text = "Launch"
+
+[node name="FlightControlContainer" type="HFlowContainer" parent="MarginContainer/HSplitContainer/Simulation/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 16
+alignment = 1
+
+[node name="PlayButton" type="Button" parent="MarginContainer/HSplitContainer/Simulation/MarginContainer/VBoxContainer/FlightControlContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+shortcut = SubResource("Shortcut_4fuuu")
+text = "Pause"
+
+[node name="RestartButton" type="Button" parent="MarginContainer/HSplitContainer/Simulation/MarginContainer/VBoxContainer/FlightControlContainer"]
+layout_mode = 2
+text = "Restart"
 
 [node name="HFlowContainer" type="HFlowContainer" parent="MarginContainer/HSplitContainer/Simulation/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -224,3 +245,5 @@ visible = false
 [connection signal="toggled" from="MarginContainer/HSplitContainer/MissionControl/MarginContainer/VBoxContainer/MarginContainer/GridContainer/FuelCheckButton" to="." method="_on_fuel_check_button_toggled"]
 [connection signal="toggled" from="MarginContainer/HSplitContainer/MissionControl/MarginContainer/VBoxContainer/MarginContainer/GridContainer/EngineCheckButton" to="." method="_on_engine_check_button_toggled"]
 [connection signal="pressed" from="MarginContainer/HSplitContainer/Simulation/MarginContainer/VBoxContainer/LaunchButton" to="." method="_on_launch_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HSplitContainer/Simulation/MarginContainer/VBoxContainer/FlightControlContainer/PlayButton" to="MarginContainer/HSplitContainer/Simulation/MarginContainer/VBoxContainer/AssemblyLine" method="_on_play_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HSplitContainer/Simulation/MarginContainer/VBoxContainer/FlightControlContainer/RestartButton" to="MarginContainer/HSplitContainer/Simulation/MarginContainer/VBoxContainer/AssemblyLine" method="_on_restart_button_pressed"]
