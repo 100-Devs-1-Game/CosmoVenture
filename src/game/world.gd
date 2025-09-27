@@ -1,4 +1,4 @@
-class_name AssemblyLine extends Control
+class_name World extends Control
 
 
 var is_paused := false

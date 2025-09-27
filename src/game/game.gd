@@ -5,6 +5,7 @@ class_name Game extends Control
 
 var is_launch_ready := false
 
+
 func _ready() -> void:
 	data.rocket.part_defs = parts_scene
 	# Assemble on load of saved data.
@@ -12,14 +13,16 @@ func _ready() -> void:
 	%PodCheckButton.set_pressed_no_signal(data.rocket.has_part(GlobalInfo.RocketPartType.PodMk1))
 	%FuelCheckButton.set_pressed_no_signal(data.rocket.has_part(GlobalInfo.RocketPartType.FuelMk1))
 	%EngineCheckButton.set_pressed_no_signal(data.rocket.has_part(GlobalInfo.RocketPartType.ThrusterMk1))
-	var assembly_line: AssemblyLine = get_node("%AssemblyLine")
-	assembly_line.data = data
+	_get_world().data = data
 	_assemble()
 
 
+func _get_world() -> World:
+	return get_node("%World")
+
+
 func _assemble() -> void:
-	var assembly_line: AssemblyLine = get_node("%AssemblyLine")
-	assembly_line.assemble_craft()
+	_get_world().assemble_craft()
 	%LaunchButton.disabled = !data.rocket.is_launch_ready()
 
 
@@ -50,5 +53,4 @@ func _on_engine_check_button_toggled(toggled_on: bool) -> void:
 
 
 func _on_launch_button_pressed() -> void:
-	var assembly_line: AssemblyLine = get_node("%AssemblyLine")
-	assembly_line.launch()
+	_get_world().launch()

@@ -1,7 +1,7 @@
 [gd_scene load_steps=14 format=3 uid="uid://cgd1x67pxpavn"]
 
 [ext_resource type="Script" uid="uid://d1pro72fdayqf" path="res://game/game.gd" id="1_l1rk1"]
-[ext_resource type="Script" uid="uid://c867l8s4sq4r2" path="res://game/assembly_line.gd" id="2_h7iqs"]
+[ext_resource type="Script" uid="uid://c867l8s4sq4r2" path="res://game/world.gd" id="2_h7iqs"]
 [ext_resource type="PackedScene" uid="uid://qbnv5tebsywq" path="res://game/parts/space_craft_parts.tscn" id="3_h7iqs"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h7iqs"]
@@ -228,7 +228,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "Height: 0"
 
-[node name="AssemblyLine" type="Control" parent="MarginContainer/HSplitContainer/Simulation/MarginContainer/VBoxContainer"]
+[node name="World" type="Control" parent="MarginContainer/HSplitContainer/Simulation/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
@@ -245,5 +245,5 @@ visible = false
 [connection signal="toggled" from="MarginContainer/HSplitContainer/MissionControl/MarginContainer/VBoxContainer/MarginContainer/GridContainer/FuelCheckButton" to="." method="_on_fuel_check_button_toggled"]
 [connection signal="toggled" from="MarginContainer/HSplitContainer/MissionControl/MarginContainer/VBoxContainer/MarginContainer/GridContainer/EngineCheckButton" to="." method="_on_engine_check_button_toggled"]
 [connection signal="pressed" from="MarginContainer/HSplitContainer/Simulation/MarginContainer/VBoxContainer/LaunchButton" to="." method="_on_launch_button_pressed"]
-[connection signal="pressed" from="MarginContainer/HSplitContainer/Simulation/MarginContainer/VBoxContainer/FlightControlContainer/PlayButton" to="MarginContainer/HSplitContainer/Simulation/MarginContainer/VBoxContainer/AssemblyLine" method="_on_play_button_pressed"]
-[connection signal="pressed" from="MarginContainer/HSplitContainer/Simulation/MarginContainer/VBoxContainer/FlightControlContainer/RestartButton" to="MarginContainer/HSplitContainer/Simulation/MarginContainer/VBoxContainer/AssemblyLine" method="_on_restart_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HSplitContainer/Simulation/MarginContainer/VBoxContainer/FlightControlContainer/PlayButton" to="MarginContainer/HSplitContainer/Simulation/MarginContainer/VBoxContainer/World" method="_on_play_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HSplitContainer/Simulation/MarginContainer/VBoxContainer/FlightControlContainer/RestartButton" to="MarginContainer/HSplitContainer/Simulation/MarginContainer/VBoxContainer/World" method="_on_restart_button_pressed"]
