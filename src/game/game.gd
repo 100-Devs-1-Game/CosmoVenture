@@ -1,7 +1,6 @@
 class_name Game extends Control
 
-@onready var parts_scene: SpaceCraftParts = preload("res://game/parts/space_craft_parts.tscn").instantiate()
-
+@onready var parts_scene: SpaceCraftParts = %SpaceCraftParts
 @export var data: GameData
 
 var is_launch_ready := false
@@ -51,6 +50,5 @@ func _on_engine_check_button_toggled(toggled_on: bool) -> void:
 
 
 func _on_launch_button_pressed() -> void:
-	data.rocket.add_part(GlobalInfo.RocketPartType.BurnThrusterMk1)
 	var assembly_line: AssemblyLine = get_node("%AssemblyLine")
 	assembly_line.launch()

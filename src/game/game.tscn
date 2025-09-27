@@ -213,15 +213,9 @@ layout_mode = 2
 size_flags_vertical = 3
 script = ExtResource("2_h7iqs")
 
-[node name="SpaceCraftParts" parent="." node_paths=PackedStringArray("parts_by_type") instance=ExtResource("3_h7iqs")]
+[node name="SpaceCraftParts" parent="." instance=ExtResource("3_h7iqs")]
+unique_name_in_owner = true
 visible = false
-parts_by_type = {
-0: NodePath("NoseMk1"),
-1: NodePath("PodMk1"),
-2: NodePath("FuelMk1"),
-3: NodePath("ThrusterMk1"),
-4: NodePath("BurnThrusterMk1")
-}
 
 [connection signal="pressed" from="MarginContainer/HSplitContainer/MissionControl/MarginContainer/VBoxContainer/MarginContainer/GridContainer/HeadCheckButton" to="." method="_on_pod_check_button_pressed"]
 [connection signal="toggled" from="MarginContainer/HSplitContainer/MissionControl/MarginContainer/VBoxContainer/MarginContainer/GridContainer/HeadCheckButton" to="." method="_on_head_check_button_toggled"]

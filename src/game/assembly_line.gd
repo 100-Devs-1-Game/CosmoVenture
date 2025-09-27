@@ -42,9 +42,12 @@ func _draw() -> void:
 
 func assemble_craft() -> void:
 	is_sim = false
+	craft_at_y = 0
+	data.rocket.remove_part(GlobalInfo.RocketPartType.BurnThrusterMk1)
 	queue_redraw()
 
 
 func launch() -> void:
+	data.rocket.add_part(GlobalInfo.RocketPartType.BurnThrusterMk1)
 	is_sim = true
 	craft_at_y = 200
