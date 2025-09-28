@@ -2,13 +2,15 @@ class_name Rocket extends Resource
 
 @export var part_types: Array[GlobalInfo.RocketPartType]
 
+@export var mass_kg: float # Not weight
+@export var height: float
+@export var width: float
+@export var fuel_kg: float
+@export var fuel_burn_rate_kgps: float
+
 
 # Someone must initialize part definitions.
 var part_defs: SpaceCraftParts
-
-
-func set_part_defs(defs: SpaceCraftParts) -> void:
-	part_defs = defs
 
 
 func get_parts() -> Array[RocketPart]:
@@ -42,6 +44,30 @@ func is_launch_ready() -> bool:
 		&& has_part(GlobalInfo.RocketPartType.ThrusterMk1))
 
 
+func get_force_n() -> int:
+	# TODO: Save parts as resource.
+	# Last part must be the thuster.
+	var bottom_part = part_types[-1] # part_types.get(part_types.size() - 1)
+	if bottom_part == GlobalInfo.RocketPartType.ThrusterMk1:
+		var thruster: RocketThruster = part_defs.get_part_by_type(bottom_part)
+		return thruster.force_n
+	return 0
+
+
+func calc_props() -> void:
+	var w = 0.0
+	var h = 0.0
+	var m = 0.0
+	var parts = get_parts()
+	for p in parts:
+		w = max(w, p.get_rect().size.x)
+		h += p.get_rect().size.y
+		m += p.mass_kg
+	width = w
+	height = h
+	mass_kg = m
+
+# pos represents the top middle point of the rocket.
 func draw_rocket(canvas: Control, pos: Vector2, max_scale: float = 1.0) -> void:
 	var w = 0.0
 	var h = 0.0
@@ -57,3 +83,4 @@ func draw_rocket(canvas: Control, pos: Vector2, max_scale: float = 1.0) -> void:
 		pos.x = canvas.size.x / 2 - part_size.x / 2 * pscale
 		p.draw_part(canvas, pos, pscale)
 		pos.y += part_size.y * pscale
+	height = h

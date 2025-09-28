@@ -2,7 +2,7 @@ class_name RocketPart extends Sprite2D
 
 
 @export var type: GlobalInfo.RocketPartType
-@export var massKg: int
+@export var mass_kg: int
 
 func draw_part(canvas: CanvasItem, pos: Vector2, pscale: float) -> void:
 	var size = get_rect().size

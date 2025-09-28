@@ -1,63 +1,60 @@
 class_name World extends Control
 
 
-var is_paused := false
-var is_sim := false
-var max_scale := 0.5
-var craft_at_y := 0
-
 var data: GameData
-var velocity := Vector2(0, 0)
+var is_paused := false
+var dt: float = 0.0
 
 
 func _ready() -> void:
 	pass
 
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
+	dt = 0.0
 	if is_paused:
 		return
-	if !is_sim:
+	if data.flight == null or !data.flight.is_active:
 		# Nothing to process if not simulating.
 		return
-
-	var a = (1000 - 50)/50.0 - 10
-	var v = velocity + Vector2(0, a * _delta)
-	max_scale = 0.2
-	craft_at_y -= v.y * _delta
-	
-	velocity = v
-	%SpeedLabel.text = "Speed: " + str(velocity.length())
-	%HeightLabel.text = "Altitude: " + str(craft_at_y)
-	
+	dt = delta
 	queue_redraw()
 
 
 func _draw() -> void:
-	var pos = Vector2(0, craft_at_y)
-	var pscale = 1.0
-	if is_sim:
-		pscale = max_scale
-	data.rocket.draw_rocket(self, pos, pscale)
+	if data.flight != null and data.flight.is_active:
+		data.flight.draw_flight(self, dt)
+		%SpeedLabel.text = "Speed: %0d" % data.flight.velocity_kms.length()
+		%HeightLabel.text = "Altitude: " + str(data.flight.d_surface_km)
+		%MassLabel.text = "Mass: " + str(data.flight.rocket.mass_kg)
+		%ThrustLabel.text = "Thrust: " + str(data.flight.rocket.get_force_n())
+	else:
+		data.rocket.draw_rocket(self, Vector2(get_rect().size.x / 2, 0.0))
 
 
 func assemble_craft() -> void:
-	is_sim = false
-	craft_at_y = 0
-	max_scale = 0.5
-	data.rocket.remove_part(GlobalInfo.RocketPartType.BurnThrusterMk1)
+	data.flight = null
+	is_paused = false
+	%PlayButton.text = "Pause"
 	queue_redraw()
 
 
 func launch() -> void:
-	if !is_sim:
-		is_sim = true
-		craft_at_y = 200
-		data.rocket.add_part(GlobalInfo.RocketPartType.BurnThrusterMk1)
+	# Create a flight.
+
+	# Duplicate rocket because data.rocket represents its full
+	# configuration, while flight rocket is its current state.
+	# This state includes remaining fuel and remaining modules.
+	var flight_rocket = data.rocket.duplicate(true)
+	flight_rocket.part_defs = data.rocket.part_defs
+	flight_rocket.calc_props()
+	var flight = Flight.new(	flight_rocket, Globe.Earth.new())
+	data.flight = flight
+	flight.start_flight()
 
 
 func _on_play_button_pressed() -> void:
-	if !is_sim:
+	if data.flight == null or !data.flight.is_active:
 		return
 	is_paused = !is_paused
 	if is_paused:
@@ -67,10 +64,8 @@ func _on_play_button_pressed() -> void:
 
 
 func _on_restart_button_pressed() -> void:
-	if is_sim:
-		velocity = Vector2(0, 0)
-		craft_at_y = 0
-		is_sim = false
+	if data.flight != null and data.flight.is_active:
 		is_paused = false
 		%PlayButton.text = "Pause"
+		data.flight = null
 	launch()

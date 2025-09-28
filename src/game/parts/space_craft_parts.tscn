@@ -16,7 +16,7 @@ texture = ExtResource("1_370wy")
 region_enabled = true
 region_rect = Rect2(912, 64, 96, 80)
 script = ExtResource("3_dky0s")
-massKg = 10
+mass_kg = 5
 metadata/_custom_type_script = "uid://vydxb4j3h5bx"
 
 [node name="PodMk1" type="Sprite2D" parent="."]
@@ -26,7 +26,7 @@ region_enabled = true
 region_rect = Rect2(832, 168, 256, 176)
 script = ExtResource("3_dky0s")
 type = 1
-massKg = 50
+mass_kg = 5
 metadata/_custom_type_script = "uid://vydxb4j3h5bx"
 
 [node name="FuelMk1" type="Sprite2D" parent="."]
@@ -38,7 +38,7 @@ script = ExtResource("4_eu78e")
 max_fuel_kg = 1000.0
 remaining_fuel_kg = 1000.0
 type = 2
-massKg = 10
+mass_kg = 10
 metadata/_custom_type_script = "uid://c5lh7ypvfn4hk"
 
 [node name="ThrusterMk1" type="Sprite2D" parent="."]
@@ -48,9 +48,9 @@ region_enabled = true
 region_rect = Rect2(816, 792, 288, 168)
 script = ExtResource("5_esoan")
 fuel_burn_rate_kgps = 10
-forceN = 1000
+force_n = 100
 type = 3
-massKg = 100
+mass_kg = 10
 metadata/_custom_type_script = "uid://bj44600e0iwuv"
 
 [node name="BurnThrusterMk1" type="Sprite2D" parent="."]

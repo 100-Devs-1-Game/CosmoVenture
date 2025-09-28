@@ -214,7 +214,6 @@ text = "Restart"
 
 [node name="HFlowContainer" type="HFlowContainer" parent="MarginContainer/HSplitContainer/Simulation/MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/h_separation = 16
 
 [node name="SpeedLabel" type="Label" parent="MarginContainer/HSplitContainer/Simulation/MarginContainer/VBoxContainer/HFlowContainer"]
 unique_name_in_owner = true
@@ -227,6 +226,18 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Height: 0"
+
+[node name="MassLabel" type="Label" parent="MarginContainer/HSplitContainer/Simulation/MarginContainer/VBoxContainer/HFlowContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Mass: 0"
+
+[node name="ThrustLabel" type="Label" parent="MarginContainer/HSplitContainer/Simulation/MarginContainer/VBoxContainer/HFlowContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Thrust: 0"
 
 [node name="World" type="Control" parent="MarginContainer/HSplitContainer/Simulation/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true

@@ -1,13 +1,10 @@
 class_name Game extends Control
 
-@onready var parts_scene: SpaceCraftParts = %SpaceCraftParts
 @export var data: GameData
-
-var is_launch_ready := false
 
 
 func _ready() -> void:
-	data.rocket.part_defs = parts_scene
+	data.rocket.part_defs = %SpaceCraftParts
 	# Assemble on load of saved data.
 	%HeadCheckButton.set_pressed_no_signal(data.rocket.has_part(GlobalInfo.RocketPartType.NoseMk1))
 	%PodCheckButton.set_pressed_no_signal(data.rocket.has_part(GlobalInfo.RocketPartType.PodMk1))
