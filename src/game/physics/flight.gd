@@ -28,8 +28,8 @@ class_name Flight extends Resource
 
 
 func _init(
-	p_rocket: Rocket,
-	p_closest_globe: Globe,
+	p_rocket: Rocket = Rocket.new(),
+	p_closest_globe: Globe = Globe.Earth.new(),
 	p_d_surface_km: int = 0,
 	p_tilt_deg: float = 0.0,
 	p_velocity_kms: Vector2 = Vector2(0.0, 0.0)) -> void:

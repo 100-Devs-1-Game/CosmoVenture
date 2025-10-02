@@ -11,6 +11,9 @@ func _ready() -> void:
 	%FuelCheckButton.set_pressed_no_signal(data.rocket.has_part(GlobalInfo.RocketPartType.FuelMk1))
 	%EngineCheckButton.set_pressed_no_signal(data.rocket.has_part(GlobalInfo.RocketPartType.ThrusterMk1))
 	_get_world().data = data
+	if data.flight != null and data.flight.is_active:
+		# TODO: Start flight in paused mode.
+		pass
 	_assemble()
 
 

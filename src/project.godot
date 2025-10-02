@@ -15,6 +15,13 @@ run/main_scene="res://main.tscn"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[editor]
+
+movie_writer/video_quality=0.5
+movie_writer/ogv/audio_quality=-0.1
+movie_writer/movie_file="C:/Users/mitta/Documents/Godot/dev100/CosmoVenture/src/recordings/rec.avi"
+movie_writer/fps=30
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/gut/plugin.cfg")
