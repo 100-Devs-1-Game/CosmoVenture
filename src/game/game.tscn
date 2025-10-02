@@ -249,9 +249,7 @@ script = ExtResource("2_h7iqs")
 unique_name_in_owner = true
 visible = false
 
-[connection signal="pressed" from="MarginContainer/HSplitContainer/MissionControl/MarginContainer/VBoxContainer/MarginContainer/GridContainer/HeadCheckButton" to="." method="_on_pod_check_button_pressed"]
 [connection signal="toggled" from="MarginContainer/HSplitContainer/MissionControl/MarginContainer/VBoxContainer/MarginContainer/GridContainer/HeadCheckButton" to="." method="_on_head_check_button_toggled"]
-[connection signal="pressed" from="MarginContainer/HSplitContainer/MissionControl/MarginContainer/VBoxContainer/MarginContainer/GridContainer/PodCheckButton" to="." method="_on_pod_check_button_pressed"]
 [connection signal="toggled" from="MarginContainer/HSplitContainer/MissionControl/MarginContainer/VBoxContainer/MarginContainer/GridContainer/PodCheckButton" to="." method="_on_pod_check_button_toggled"]
 [connection signal="toggled" from="MarginContainer/HSplitContainer/MissionControl/MarginContainer/VBoxContainer/MarginContainer/GridContainer/FuelCheckButton" to="." method="_on_fuel_check_button_toggled"]
 [connection signal="toggled" from="MarginContainer/HSplitContainer/MissionControl/MarginContainer/VBoxContainer/MarginContainer/GridContainer/EngineCheckButton" to="." method="_on_engine_check_button_toggled"]
