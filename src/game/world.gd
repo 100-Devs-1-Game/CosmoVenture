@@ -68,4 +68,12 @@ func _on_restart_button_pressed() -> void:
 		is_paused = false
 		%PlayButton.text = "Pause"
 		data.flight = null
-	launch()
+		launch()
+
+
+func _can_drop_data(at_position: Vector2, drop_data: Variant) -> bool:
+	print("CanDropData at pos: " + str(at_position) + " data: " + str(drop_data))
+	return true
+
+func _drop_data(at_position: Vector2, drop_data: Variant) -> void:
+	print("DropData at pos: " + str(at_position) + " data: " + str(drop_data))

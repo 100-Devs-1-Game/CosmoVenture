@@ -1,15 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://cgd1x67pxpavn"]
+[gd_scene load_steps=12 format=3 uid="uid://cgd1x67pxpavn"]
 
 [ext_resource type="Script" uid="uid://d1pro72fdayqf" path="res://game/game.gd" id="1_l1rk1"]
 [ext_resource type="Script" uid="uid://c867l8s4sq4r2" path="res://game/world.gd" id="2_h7iqs"]
-[ext_resource type="PackedScene" uid="uid://qbnv5tebsywq" path="res://game/parts/space_craft_parts.tscn" id="3_h7iqs"]
+[ext_resource type="Script" uid="uid://cmyrbkusy8ikx" path="res://game/available_parts.gd" id="3_dxrkv"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h7iqs"]
-bg_color = Color(0.60324824, 0.6032482, 0.60324806, 1)
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4fuuu"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_h7iqs"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dxrkv"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4fuuu"]
 bg_color = Color(0.17644349, 0.43896013, 0.2799936, 1)
@@ -101,8 +96,8 @@ text = "Science: 0"
 
 [node name="AssemblyLineLabel" type="Label" parent="MarginContainer/HSplitContainer/MissionControl/MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 36
-text = "Assembly Line"
+theme_override_font_sizes/font_size = 32
+text = "Parts"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -110,61 +105,22 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/HSplitContainer/MissionControl/MarginContainer/VBoxContainer/MarginContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/HSplitContainer/MissionControl/MarginContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="GridContainer" type="GridContainer" parent="MarginContainer/HSplitContainer/MissionControl/MarginContainer/VBoxContainer/MarginContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-
-[node name="HeadCheckButton" type="Button" parent="MarginContainer/HSplitContainer/MissionControl/MarginContainer/VBoxContainer/MarginContainer/GridContainer"]
+[node name="AvailableParts" type="ItemList" parent="MarginContainer/HSplitContainer/MissionControl/MarginContainer/VBoxContainer/MarginContainer/ScrollContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_font_sizes/font_size = 32
-theme_override_styles/pressed = SubResource("StyleBoxFlat_h7iqs")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_4fuuu")
-toggle_mode = true
-text = "Head"
-
-[node name="PodCheckButton" type="Button" parent="MarginContainer/HSplitContainer/MissionControl/MarginContainer/VBoxContainer/MarginContainer/GridContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-theme_override_styles/pressed = SubResource("StyleBoxFlat_h7iqs")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_4fuuu")
-toggle_mode = true
-text = "Pod"
-
-[node name="FuelCheckButton" type="Button" parent="MarginContainer/HSplitContainer/MissionControl/MarginContainer/VBoxContainer/MarginContainer/GridContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-theme_override_styles/pressed = SubResource("StyleBoxFlat_h7iqs")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_h7iqs")
-toggle_mode = true
-text = "Fuel"
-
-[node name="EngineCheckButton" type="Button" parent="MarginContainer/HSplitContainer/MissionControl/MarginContainer/VBoxContainer/MarginContainer/GridContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-theme_override_styles/pressed = SubResource("StyleBoxFlat_h7iqs")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_h7iqs")
-toggle_mode = true
-text = "Engine"
-
-[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/HSplitContainer/MissionControl/MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="TabContainer" type="TabContainer" parent="MarginContainer/HSplitContainer/MissionControl/MarginContainer/VBoxContainer/MarginContainer2"]
-layout_mode = 2
-current_tab = 0
-
-[node name="Control" type="Control" parent="MarginContainer/HSplitContainer/MissionControl/MarginContainer/VBoxContainer/MarginContainer2/TabContainer"]
-layout_mode = 2
-metadata/_tab_index = 0
+size_flags_horizontal = 6
+size_flags_vertical = 6
+theme_override_constants/h_separation = 16
+theme_override_constants/v_separation = 16
+theme_override_font_sizes/font_size = 12
+theme_override_styles/focus = SubResource("StyleBoxEmpty_dxrkv")
+auto_width = true
+auto_height = true
+fixed_icon_size = Vector2i(48, 48)
+script = ExtResource("3_dxrkv")
 
 [node name="Simulation" type="Control" parent="MarginContainer/HSplitContainer"]
 layout_mode = 2
@@ -245,14 +201,6 @@ layout_mode = 2
 size_flags_vertical = 3
 script = ExtResource("2_h7iqs")
 
-[node name="SpaceCraftParts" parent="." instance=ExtResource("3_h7iqs")]
-unique_name_in_owner = true
-visible = false
-
-[connection signal="toggled" from="MarginContainer/HSplitContainer/MissionControl/MarginContainer/VBoxContainer/MarginContainer/GridContainer/HeadCheckButton" to="." method="_on_head_check_button_toggled"]
-[connection signal="toggled" from="MarginContainer/HSplitContainer/MissionControl/MarginContainer/VBoxContainer/MarginContainer/GridContainer/PodCheckButton" to="." method="_on_pod_check_button_toggled"]
-[connection signal="toggled" from="MarginContainer/HSplitContainer/MissionControl/MarginContainer/VBoxContainer/MarginContainer/GridContainer/FuelCheckButton" to="." method="_on_fuel_check_button_toggled"]
-[connection signal="toggled" from="MarginContainer/HSplitContainer/MissionControl/MarginContainer/VBoxContainer/MarginContainer/GridContainer/EngineCheckButton" to="." method="_on_engine_check_button_toggled"]
 [connection signal="pressed" from="MarginContainer/HSplitContainer/Simulation/MarginContainer/VBoxContainer/LaunchButton" to="." method="_on_launch_button_pressed"]
 [connection signal="pressed" from="MarginContainer/HSplitContainer/Simulation/MarginContainer/VBoxContainer/FlightControlContainer/PlayButton" to="MarginContainer/HSplitContainer/Simulation/MarginContainer/VBoxContainer/World" method="_on_play_button_pressed"]
 [connection signal="pressed" from="MarginContainer/HSplitContainer/Simulation/MarginContainer/VBoxContainer/FlightControlContainer/RestartButton" to="MarginContainer/HSplitContainer/Simulation/MarginContainer/VBoxContainer/World" method="_on_restart_button_pressed"]

@@ -49,8 +49,8 @@ func get_force_n() -> int:
 	# Last part must be the thuster.
 	var bottom_part = part_types[-1] # part_types.get(part_types.size() - 1)
 	if bottom_part == GlobalInfo.RocketPartType.ThrusterMk1:
-		var thruster: RocketThruster = part_defs.get_part_by_type(bottom_part)
-		return thruster.force_n
+		var thruster: RocketPart = part_defs.get_part_by_type(bottom_part)
+		return thruster.props.force_n
 	return 0
 
 
@@ -62,7 +62,7 @@ func calc_props() -> void:
 	for p in parts:
 		w = max(w, p.get_rect().size.x)
 		h += p.get_rect().size.y
-		m += p.mass_kg
+		m += p.props.mass_kg
 	width = w
 	height = h
 	mass_kg = m

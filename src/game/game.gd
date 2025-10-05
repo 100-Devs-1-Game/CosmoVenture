@@ -1,15 +1,13 @@
 class_name Game extends Control
 
 @export var data: GameData
+@onready var part_defs = preload("res://game/parts/space_craft_parts.tscn").instantiate()
 
 
 func _ready() -> void:
-	data.rocket.part_defs = %SpaceCraftParts
-	# Assemble on load of saved data.
-	%HeadCheckButton.set_pressed_no_signal(data.rocket.has_part(GlobalInfo.RocketPartType.NoseMk1))
-	%PodCheckButton.set_pressed_no_signal(data.rocket.has_part(GlobalInfo.RocketPartType.PodMk1))
-	%FuelCheckButton.set_pressed_no_signal(data.rocket.has_part(GlobalInfo.RocketPartType.FuelMk1))
-	%EngineCheckButton.set_pressed_no_signal(data.rocket.has_part(GlobalInfo.RocketPartType.ThrusterMk1))
+	add_child(part_defs)
+	data.rocket.part_defs = part_defs
+	%AvailableParts.display_parts(data.rocket.part_defs)
 	_get_world().data = data
 	if data.flight != null and data.flight.is_active:
 		# TODO: Start flight in paused mode.

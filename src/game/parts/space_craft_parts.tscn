@@ -1,14 +1,44 @@
-[gd_scene load_steps=6 format=3 uid="uid://qbnv5tebsywq"]
+[gd_scene load_steps=9 format=3 uid="uid://qbnv5tebsywq"]
 
 [ext_resource type="Script" uid="uid://2wyl6eg6m4vq" path="res://game/parts/space_craft_parts.gd" id="1_4cdf7"]
 [ext_resource type="Texture2D" uid="uid://b41hw7hoo58hd" path="res://assets/First_Cosmo_Rocket.png" id="1_370wy"]
 [ext_resource type="Script" uid="uid://vydxb4j3h5bx" path="res://game/parts/rocket_part.gd" id="3_dky0s"]
-[ext_resource type="Script" uid="uid://c5lh7ypvfn4hk" path="res://game/parts/rocket_fuel.gd" id="4_eu78e"]
-[ext_resource type="Script" uid="uid://bj44600e0iwuv" path="res://game/parts/rocket_thruster.gd" id="5_esoan"]
+[ext_resource type="Script" uid="uid://6nffl3ywjcqj" path="res://game/parts/rocket_part_props.gd" id="4_esoan"]
+
+[sub_resource type="Resource" id="Resource_5aai6"]
+script = ExtResource("4_esoan")
+name = "NoseMk1"
+mass_kg = 5
+metadata/_custom_type_script = "uid://6nffl3ywjcqj"
+
+[sub_resource type="Resource" id="Resource_esoan"]
+script = ExtResource("4_esoan")
+name = "PodMk1"
+type = 1
+mass_kg = 5
+metadata/_custom_type_script = "uid://6nffl3ywjcqj"
+
+[sub_resource type="Resource" id="Resource_sdnhe"]
+script = ExtResource("4_esoan")
+name = "FuelMk1"
+type = 2
+mass_kg = 10
+max_fuel_kg = 1000.0
+remaining_fuel_kg = 1000.0
+metadata/_custom_type_script = "uid://6nffl3ywjcqj"
+
+[sub_resource type="Resource" id="Resource_a3ath"]
+script = ExtResource("4_esoan")
+name = "ThrusterMk1"
+type = 3
+mass_kg = 10
+fuel_burn_rate_kgps = 10
+force_n = 100
+metadata/_custom_type_script = "uid://6nffl3ywjcqj"
 
 [node name="SpaceCraftParts" type="Node2D" node_paths=PackedStringArray("parts")]
 script = ExtResource("1_4cdf7")
-parts = [NodePath("NoseMk1"), NodePath("PodMk1"), NodePath("FuelMk1"), NodePath("ThrusterMk1"), NodePath("BurnThrusterMk1")]
+parts = [NodePath("NoseMk1"), NodePath("PodMk1"), NodePath("FuelMk1"), NodePath("ThrusterMk1")]
 
 [node name="NoseMk1" type="Sprite2D" parent="."]
 visible = false
@@ -16,7 +46,7 @@ texture = ExtResource("1_370wy")
 region_enabled = true
 region_rect = Rect2(912, 64, 96, 80)
 script = ExtResource("3_dky0s")
-mass_kg = 5
+props = SubResource("Resource_5aai6")
 metadata/_custom_type_script = "uid://vydxb4j3h5bx"
 
 [node name="PodMk1" type="Sprite2D" parent="."]
@@ -25,8 +55,7 @@ texture = ExtResource("1_370wy")
 region_enabled = true
 region_rect = Rect2(832, 168, 256, 176)
 script = ExtResource("3_dky0s")
-type = 1
-mass_kg = 5
+props = SubResource("Resource_esoan")
 metadata/_custom_type_script = "uid://vydxb4j3h5bx"
 
 [node name="FuelMk1" type="Sprite2D" parent="."]
@@ -34,24 +63,18 @@ visible = false
 texture = ExtResource("1_370wy")
 region_enabled = true
 region_rect = Rect2(816, 416, 288, 336)
-script = ExtResource("4_eu78e")
-max_fuel_kg = 1000.0
-remaining_fuel_kg = 1000.0
-type = 2
-mass_kg = 10
-metadata/_custom_type_script = "uid://c5lh7ypvfn4hk"
+script = ExtResource("3_dky0s")
+props = SubResource("Resource_sdnhe")
+metadata/_custom_type_script = "uid://vydxb4j3h5bx"
 
 [node name="ThrusterMk1" type="Sprite2D" parent="."]
 visible = false
 texture = ExtResource("1_370wy")
 region_enabled = true
 region_rect = Rect2(816, 792, 288, 168)
-script = ExtResource("5_esoan")
-fuel_burn_rate_kgps = 10
-force_n = 100
-type = 3
-mass_kg = 10
-metadata/_custom_type_script = "uid://bj44600e0iwuv"
+script = ExtResource("3_dky0s")
+props = SubResource("Resource_a3ath")
+metadata/_custom_type_script = "uid://vydxb4j3h5bx"
 
 [node name="BurnThrusterMk1" type="Sprite2D" parent="."]
 visible = false
@@ -59,5 +82,4 @@ texture = ExtResource("1_370wy")
 region_enabled = true
 region_rect = Rect2(792, 1024, 336, 336)
 script = ExtResource("3_dky0s")
-type = 4
 metadata/_custom_type_script = "uid://vydxb4j3h5bx"
