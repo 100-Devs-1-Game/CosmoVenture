@@ -1,6 +1,12 @@
 class_name Rocket extends Resource
 
 @export var part_types: Array[GlobalInfo.RocketPartType]
+@export var parts: Array[RocketPartProps]
+
+# Ephemeral part is added to a rocket at the time of assembly.
+var ephemeral_part_pos := Vector2(0, 0)
+var ephemeral_part: RocketPartProps
+var ephemeral_part_index: int = -1 # Computed
 
 @export var mass_kg: float # Not weight
 @export var height: float
@@ -11,15 +17,6 @@ class_name Rocket extends Resource
 
 # Someone must initialize part definitions.
 var part_defs: SpaceCraftParts
-
-
-func get_parts() -> Array[RocketPart]:
-	var parts: Array[RocketPart] = []
-	if part_defs == null:
-		return parts
-	for t in part_types:
-		parts.append(part_defs.get_part_by_type(t))
-	return parts
 
 
 func add_part(part: GlobalInfo.RocketPartType) -> void:
@@ -54,33 +51,64 @@ func get_force_n() -> int:
 	return 0
 
 
-func calc_props() -> void:
+func calc_props(canvas: Control) -> void:
 	var w = 0.0
 	var h = 0.0
 	var m = 0.0
-	var parts = get_parts()
+	var cumulative_heights = []
 	for p in parts:
-		w = max(w, p.get_rect().size.x)
-		h += p.get_rect().size.y
-		m += p.props.mass_kg
+		var def = part_defs.get_part_by_type(p.type)
+		w = max(w, def.get_rect().size.x)
+		h += def.get_rect().size.y
+		cumulative_heights.append(h)
+		m += p.mass_kg
+
+	var pscale = 1.0
+	# Compute index for ephemeral part
+	if ephemeral_part != null:
+		var def = part_defs.get_part_by_type(ephemeral_part.type)
+		w = max(w, def.get_rect().size.x)
+		h += def.get_rect().size.y
+		pscale = min(1.0, canvas.size.y / h)
+		for i in range(parts.size()):
+			var ht_till_now = cumulative_heights[i] * pscale
+			if ephemeral_part_pos.y < ht_till_now:
+				ephemeral_part_index = i
+				break
+		if ephemeral_part_index == -1:
+			ephemeral_part_index = parts.size() # Add at the bottom
+	else:
+		ephemeral_part_index = -1
+
 	width = w
 	height = h
 	mass_kg = m
 
 # pos represents the top middle point of the rocket.
 func draw_rocket(canvas: Control, pos: Vector2, max_scale: float = 1.0) -> void:
-	var w = 0.0
-	var h = 0.0
-	var parts = get_parts()
-	var pscale = 1.0
-	for p in parts:
-		w = max(w, p.get_rect().size.x)
-		h += p.get_rect().size.y
-		pscale = canvas.size.y / h
-	pscale = min(max_scale, 0.5)
-	for p in parts:
-		var part_size = p.get_rect().size
+	if height == 0.0:
+		calc_props(canvas)
+	var pscale = canvas.size.y / height
+	pscale = min(max_scale, pscale)
+	var num_parts = parts.size()
+	if ephemeral_part != null:
+		num_parts += 1
+	var index = 0
+	for i in range(num_parts):
+		var p: RocketPartProps
+		var is_ephemeral = false
+		if i == ephemeral_part_index:
+			p = ephemeral_part
+			is_ephemeral = true
+		else:
+			p = parts[index]
+			index += 1
+
+		var def = part_defs.get_part_by_type(p.type)
+		var part_size = def.get_rect().size
 		pos.x = canvas.size.x / 2 - part_size.x / 2 * pscale
-		p.draw_part(canvas, pos, pscale)
+		var alpha = 1.0
+		if is_ephemeral:
+			alpha = 0.5
+		def.draw_part(canvas, pos, pscale, alpha)
 		pos.y += part_size.y * pscale
-	height = h

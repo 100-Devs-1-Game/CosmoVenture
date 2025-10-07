@@ -47,7 +47,7 @@ func launch() -> void:
 	# This state includes remaining fuel and remaining modules.
 	var flight_rocket = data.rocket.duplicate(true)
 	flight_rocket.part_defs = data.rocket.part_defs
-	flight_rocket.calc_props()
+	flight_rocket.calc_props(self)
 	var flight = Flight.new(	flight_rocket, Globe.Earth.new())
 	data.flight = flight
 	flight.start_flight()
@@ -71,9 +71,44 @@ func _on_restart_button_pressed() -> void:
 		launch()
 
 
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_DRAG_END and not get_viewport().gui_is_drag_successful() and data.rocket != null:
+		data.rocket.ephemeral_part = null
+		data.rocket.ephemeral_part_pos = Vector2(0, 0)
+		data.rocket.ephemeral_part_index = -1
+		data.rocket.calc_props(self)
+		queue_redraw()
+
+
 func _can_drop_data(at_position: Vector2, drop_data: Variant) -> bool:
-	print("CanDropData at pos: " + str(at_position) + " data: " + str(drop_data))
-	return true
+	if drop_data is RocketPartProps:
+		_add_part(at_position, drop_data, true)
+		return true
+	return false
+
 
 func _drop_data(at_position: Vector2, drop_data: Variant) -> void:
-	print("DropData at pos: " + str(at_position) + " data: " + str(drop_data))
+	if drop_data is RocketPartProps:
+		_add_part(at_position, drop_data)
+
+
+
+func _add_part(pos: Vector2, part: RocketPartProps, ephemeral: bool = false) -> void:
+	if data.rocket == null:
+		data.rocket = Rocket.new()
+	var rocket = data.rocket
+
+	if rocket.parts == null:
+		rocket.parts = []
+
+	if ephemeral:
+		rocket.ephemeral_part = part
+		rocket.ephemeral_part_pos = pos
+		rocket.ephemeral_part_index = -1
+	else:
+		rocket.parts.insert(rocket.ephemeral_part_index, part)
+		rocket.ephemeral_part = null
+		rocket.ephemeral_part_pos = Vector2(0, 0)
+		rocket.ephemeral_part_index = -1
+	rocket.calc_props(self)
+	queue_redraw()
