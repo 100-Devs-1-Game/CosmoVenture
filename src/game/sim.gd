@@ -24,6 +24,17 @@ func _process(delta: float) -> void:
 func _draw() -> void:
 	if data.flight != null and data.flight.is_active:
 		data.flight.draw_flight(self, dt)
+		
+		var max_height:= 10000.0
+		var shader: ShaderMaterial= %"Flight Background".material
+		# send current height to shader
+		shader.set_shader_parameter("current_height", data.flight.d_surface_km)
+		%"Parallax2D Stars".show()
+		# fade stars in slowly depending on current height vs max_height
+		%"Parallax2D Stars".modulate.a= pow(data.flight.d_surface_km / max_height, 4)
+		# scroll the stars background depending on the ships velocity
+		%"Parallax2D Stars".autoscroll= data.flight.velocity_kms * 0.01
+		
 		%SimSpeedLabel.text = "Speed: %0d" % data.flight.velocity_kms.length()
 		%SimHeightLabel.text = "Altitude: " + str(data.flight.d_surface_km)
 		%SimMassLabel.text = "Mass: " + str(data.flight.rocket.mass_kg)
