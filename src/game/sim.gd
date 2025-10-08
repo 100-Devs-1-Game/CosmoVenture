@@ -25,13 +25,14 @@ func _draw() -> void:
 	if data.flight != null and data.flight.is_active:
 		data.flight.draw_flight(self, dt)
 		
+		# max_height is when the ship has left the atmosphere
 		var max_height:= 10000.0
-		var shader: ShaderMaterial= %"Flight Background".material
-		# send current height to shader
-		shader.set_shader_parameter("current_height", data.flight.d_surface_km)
+		var height_ratio:= data.flight.d_surface_km / max_height
+		%"Flight Background".color= Color.SKY_BLUE.lerp(Color.BLACK, height_ratio)
+
 		%"Parallax2D Stars".show()
 		# fade stars in slowly depending on current height vs max_height
-		%"Parallax2D Stars".modulate.a= pow(data.flight.d_surface_km / max_height, 4)
+		%"Parallax2D Stars".modulate.a= pow(height_ratio, 4)
 		# scroll the stars background depending on the ships velocity
 		%"Parallax2D Stars".autoscroll= data.flight.velocity_kms * 0.01
 		
