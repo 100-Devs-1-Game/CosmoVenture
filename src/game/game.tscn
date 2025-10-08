@@ -1,8 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://cgd1x67pxpavn"]
+[gd_scene load_steps=13 format=3 uid="uid://cgd1x67pxpavn"]
 
 [ext_resource type="Script" uid="uid://d1pro72fdayqf" path="res://game/game.gd" id="1_l1rk1"]
 [ext_resource type="Script" uid="uid://c867l8s4sq4r2" path="res://game/world.gd" id="2_h7iqs"]
 [ext_resource type="Script" uid="uid://cmyrbkusy8ikx" path="res://game/available_parts.gd" id="3_dxrkv"]
+[ext_resource type="Script" uid="uid://0wvqn5l4f042" path="res://game/sim.gd" id="4_4fuuu"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dxrkv"]
 
@@ -46,26 +47,33 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.11119685, 0.11119684, 0.11119684, 1)
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="TabContainer" type="TabContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_font_sizes/font_size = 20
+tab_alignment = 1
+current_tab = 0
+
+[node name="Assemble Space Craft" type="MarginContainer" parent="TabContainer"]
+layout_mode = 2
 theme_override_constants/margin_left = 16
 theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
+metadata/_tab_index = 0
 
-[node name="HSplitContainer" type="HSplitContainer" parent="MarginContainer"]
+[node name="HSplitContainer" type="HBoxContainer" parent="TabContainer/Assemble Space Craft"]
 layout_mode = 2
 
-[node name="MissionControl" type="Control" parent="MarginContainer/HSplitContainer"]
+[node name="MissionControl" type="Control" parent="TabContainer/Assemble Space Craft/HSplitContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HSplitContainer/MissionControl"]
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Assemble Space Craft/HSplitContainer/MissionControl"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -77,38 +85,38 @@ theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HSplitContainer/MissionControl/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Assemble Space Craft/HSplitContainer/MissionControl/MarginContainer"]
 layout_mode = 2
 
-[node name="HFlowContainer" type="HFlowContainer" parent="MarginContainer/HSplitContainer/MissionControl/MarginContainer/VBoxContainer"]
+[node name="HFlowContainer" type="HFlowContainer" parent="TabContainer/Assemble Space Craft/HSplitContainer/MissionControl/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/h_separation = 16
 
-[node name="GoldLabel" type="Label" parent="MarginContainer/HSplitContainer/MissionControl/MarginContainer/VBoxContainer/HFlowContainer"]
+[node name="GoldLabel" type="Label" parent="TabContainer/Assemble Space Craft/HSplitContainer/MissionControl/MarginContainer/VBoxContainer/HFlowContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Gold: 0"
 
-[node name="ScienceLabel" type="Label" parent="MarginContainer/HSplitContainer/MissionControl/MarginContainer/VBoxContainer/HFlowContainer"]
+[node name="ScienceLabel" type="Label" parent="TabContainer/Assemble Space Craft/HSplitContainer/MissionControl/MarginContainer/VBoxContainer/HFlowContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Science: 0"
 
-[node name="AssemblyLineLabel" type="Label" parent="MarginContainer/HSplitContainer/MissionControl/MarginContainer/VBoxContainer"]
+[node name="AssemblyLineLabel" type="Label" parent="TabContainer/Assemble Space Craft/HSplitContainer/MissionControl/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Parts"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HSplitContainer/MissionControl/MarginContainer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Assemble Space Craft/HSplitContainer/MissionControl/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/HSplitContainer/MissionControl/MarginContainer/VBoxContainer/MarginContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Assemble Space Craft/HSplitContainer/MissionControl/MarginContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="AvailableParts" type="ItemList" parent="MarginContainer/HSplitContainer/MissionControl/MarginContainer/VBoxContainer/MarginContainer/ScrollContainer"]
+[node name="AvailableParts" type="ItemList" parent="TabContainer/Assemble Space Craft/HSplitContainer/MissionControl/MarginContainer/VBoxContainer/MarginContainer/ScrollContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 6
@@ -122,11 +130,11 @@ auto_height = true
 fixed_icon_size = Vector2i(48, 48)
 script = ExtResource("3_dxrkv")
 
-[node name="Simulation" type="Control" parent="MarginContainer/HSplitContainer"]
+[node name="Preview" type="Control" parent="TabContainer/Assemble Space Craft/HSplitContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HSplitContainer/Simulation"]
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Assemble Space Craft/HSplitContainer/Preview"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -138,10 +146,59 @@ theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HSplitContainer/Simulation/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Assemble Space Craft/HSplitContainer/Preview/MarginContainer"]
 layout_mode = 2
 
-[node name="LaunchButton" type="Button" parent="MarginContainer/HSplitContainer/Simulation/MarginContainer/VBoxContainer"]
+[node name="HFlowContainer" type="HFlowContainer" parent="TabContainer/Assemble Space Craft/HSplitContainer/Preview/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="PreviewMassLabel" type="Label" parent="TabContainer/Assemble Space Craft/HSplitContainer/Preview/MarginContainer/VBoxContainer/HFlowContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Mass: 0"
+
+[node name="PreviewThrustLabel" type="Label" parent="TabContainer/Assemble Space Craft/HSplitContainer/Preview/MarginContainer/VBoxContainer/HFlowContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Thrust: 0"
+
+[node name="World" type="Control" parent="TabContainer/Assemble Space Craft/HSplitContainer/Preview/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+script = ExtResource("2_h7iqs")
+
+[node name="Flight Control" type="MarginContainer" parent="TabContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+metadata/_tab_index = 1
+
+[node name="Simulation" type="Control" parent="TabContainer/Flight Control"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Flight Control/Simulation"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Flight Control/Simulation/MarginContainer"]
+layout_mode = 2
+
+[node name="LaunchButton" type="Button" parent="TabContainer/Flight Control/Simulation/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 0
@@ -153,54 +210,55 @@ theme_override_styles/disabled = SubResource("StyleBoxFlat_u5opy")
 theme_override_styles/focus = SubResource("StyleBoxFlat_y36n6")
 text = "Launch"
 
-[node name="FlightControlContainer" type="HFlowContainer" parent="MarginContainer/HSplitContainer/Simulation/MarginContainer/VBoxContainer"]
+[node name="FlightControlContainer" type="HFlowContainer" parent="TabContainer/Flight Control/Simulation/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/h_separation = 16
 alignment = 1
 
-[node name="PlayButton" type="Button" parent="MarginContainer/HSplitContainer/Simulation/MarginContainer/VBoxContainer/FlightControlContainer"]
+[node name="PlayButton" type="Button" parent="TabContainer/Flight Control/Simulation/MarginContainer/VBoxContainer/FlightControlContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 shortcut = SubResource("Shortcut_4fuuu")
 text = "Pause"
 
-[node name="RestartButton" type="Button" parent="MarginContainer/HSplitContainer/Simulation/MarginContainer/VBoxContainer/FlightControlContainer"]
+[node name="RestartButton" type="Button" parent="TabContainer/Flight Control/Simulation/MarginContainer/VBoxContainer/FlightControlContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Restart"
 
-[node name="HFlowContainer" type="HFlowContainer" parent="MarginContainer/HSplitContainer/Simulation/MarginContainer/VBoxContainer"]
+[node name="HFlowContainer" type="HFlowContainer" parent="TabContainer/Flight Control/Simulation/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="SpeedLabel" type="Label" parent="MarginContainer/HSplitContainer/Simulation/MarginContainer/VBoxContainer/HFlowContainer"]
+[node name="SimSpeedLabel" type="Label" parent="TabContainer/Flight Control/Simulation/MarginContainer/VBoxContainer/HFlowContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Speed: 0"
 
-[node name="HeightLabel" type="Label" parent="MarginContainer/HSplitContainer/Simulation/MarginContainer/VBoxContainer/HFlowContainer"]
+[node name="SimHeightLabel" type="Label" parent="TabContainer/Flight Control/Simulation/MarginContainer/VBoxContainer/HFlowContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Height: 0"
 
-[node name="MassLabel" type="Label" parent="MarginContainer/HSplitContainer/Simulation/MarginContainer/VBoxContainer/HFlowContainer"]
+[node name="SimMassLabel" type="Label" parent="TabContainer/Flight Control/Simulation/MarginContainer/VBoxContainer/HFlowContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Mass: 0"
 
-[node name="ThrustLabel" type="Label" parent="MarginContainer/HSplitContainer/Simulation/MarginContainer/VBoxContainer/HFlowContainer"]
+[node name="SimThrustLabel" type="Label" parent="TabContainer/Flight Control/Simulation/MarginContainer/VBoxContainer/HFlowContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Thrust: 0"
 
-[node name="World" type="Control" parent="MarginContainer/HSplitContainer/Simulation/MarginContainer/VBoxContainer"]
+[node name="Sim" type="Control" parent="TabContainer/Flight Control/Simulation/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
-script = ExtResource("2_h7iqs")
+script = ExtResource("4_4fuuu")
 
-[connection signal="pressed" from="MarginContainer/HSplitContainer/Simulation/MarginContainer/VBoxContainer/LaunchButton" to="." method="_on_launch_button_pressed"]
-[connection signal="pressed" from="MarginContainer/HSplitContainer/Simulation/MarginContainer/VBoxContainer/FlightControlContainer/PlayButton" to="MarginContainer/HSplitContainer/Simulation/MarginContainer/VBoxContainer/World" method="_on_play_button_pressed"]
-[connection signal="pressed" from="MarginContainer/HSplitContainer/Simulation/MarginContainer/VBoxContainer/FlightControlContainer/RestartButton" to="MarginContainer/HSplitContainer/Simulation/MarginContainer/VBoxContainer/World" method="_on_restart_button_pressed"]
+[connection signal="pressed" from="TabContainer/Flight Control/Simulation/MarginContainer/VBoxContainer/LaunchButton" to="TabContainer/Flight Control/Simulation/MarginContainer/VBoxContainer/Sim" method="_on_launch_button_pressed"]
+[connection signal="pressed" from="TabContainer/Flight Control/Simulation/MarginContainer/VBoxContainer/FlightControlContainer/PlayButton" to="TabContainer/Flight Control/Simulation/MarginContainer/VBoxContainer/Sim" method="_on_play_button_pressed"]
+[connection signal="pressed" from="TabContainer/Flight Control/Simulation/MarginContainer/VBoxContainer/FlightControlContainer/RestartButton" to="TabContainer/Flight Control/Simulation/MarginContainer/VBoxContainer/Sim" method="_on_restart_button_pressed"]

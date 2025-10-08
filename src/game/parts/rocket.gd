@@ -1,6 +1,5 @@
 class_name Rocket extends Resource
 
-@export var part_types: Array[GlobalInfo.RocketPartType]
 @export var parts: Array[RocketPartProps]
 
 # Ephemeral part is added to a rocket at the time of assembly.
@@ -19,35 +18,11 @@ var ephemeral_part_index: int = -1 # Computed
 var part_defs: SpaceCraftParts
 
 
-func add_part(part: GlobalInfo.RocketPartType) -> void:
-	# TODO: Set order
-	if !has_part(part):
-		part_types.append(part)
-
-
-func remove_part(part: GlobalInfo.RocketPartType) -> void:
-	if has_part(part):
-		part_types.remove_at(part_types.find(part))
-
-
-func has_part(part: GlobalInfo.RocketPartType) -> bool:
-	return part in part_types
-
-
-func is_launch_ready() -> bool:
-	return (has_part(GlobalInfo.RocketPartType.NoseMk1)
-		&& has_part(GlobalInfo.RocketPartType.PodMk1)
-		&& has_part(GlobalInfo.RocketPartType.FuelMk1)
-		&& has_part(GlobalInfo.RocketPartType.ThrusterMk1))
-
-
 func get_force_n() -> int:
-	# TODO: Save parts as resource.
 	# Last part must be the thuster.
-	var bottom_part = part_types[-1] # part_types.get(part_types.size() - 1)
-	if bottom_part == GlobalInfo.RocketPartType.ThrusterMk1:
-		var thruster: RocketPart = part_defs.get_part_by_type(bottom_part)
-		return thruster.props.force_n
+	if parts.size() > 0:
+		var bottom_part = parts[-1] # part_types.get(part_types.size() - 1)
+		return bottom_part.force_n
 	return 0
 
 
